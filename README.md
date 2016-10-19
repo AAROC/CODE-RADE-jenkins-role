@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AAROC/CODE-RADE-jenkins-role.svg?branch=master)](https://travis-ci.org/AAROC/CODE-RADE-jenkins-role)
+
 Jenkins Server
 =========
 
@@ -30,9 +32,9 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+Apache-2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Bruce Becker](http://brucellino.github.io), CSIR Meraka Institute
