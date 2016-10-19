@@ -1,5 +1,13 @@
 ---
 # Prerequisite stuff for Jenkins
+- name: ensure that epel is available
+  yum:
+    name: http://mirror.ufs.ac.za/fedora-epel/epel-release-latest-7.noarch.rpm
+    state: present
+    update_cache: true
+
+
+
 - name: ensure that the repo is available
   get_url:
     url: http://pkg.jenkins-ci.org/redhat/jenkins.repo
