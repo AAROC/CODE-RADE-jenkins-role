@@ -1,0 +1,8 @@
+---
+# Prerequisite stuff for Jenkins
+- name: ensure that the repo is available
+  get_url:
+    url: http://pkg.jenkins-ci.org/redhat/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+    owner: root
+    group: root
