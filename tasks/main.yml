@@ -1,3 +1,4 @@
 ---
 # tasks file for jenkins-server
 - include: prerequisites.yml
+- include: server.yml

@@ -14,3 +14,20 @@
     dest: /etc/yum.repos.d/jenkins.repo
     owner: root
     group: root
+
+- name: ensure that the Jenkins RPM key is available
+  rpm_key:
+    key: http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+    state: present
+
+- name: update yum cache
+  yum:
+    name: '*'
+    state: latest
+    update_cache: true
+  changed_when: false
+
+- name: install openjdk
+  yum:
+    name: "{{ openjdk_package }}"
+    state: present

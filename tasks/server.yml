@@ -1,0 +1,10 @@
+---
+- name: install jenkins
+  yum:
+    name: jenkins
+    state: present
+
+- name: ensure that jenkins is running
+  service:
+    name: jenkins
+    state: started
