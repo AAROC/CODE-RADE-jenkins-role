@@ -1,0 +1,7 @@
+---
+# pull in the config from the repo
+# The config repo is private, so we need to pass user name and password
+- name: Pull in Jenkins config
+  git:
+    repo: https://{{ github_user }}:{{ github_password }}@github.com/AAROC/JenkinsConfig
+    dest: /tmp/JenkinsConfig

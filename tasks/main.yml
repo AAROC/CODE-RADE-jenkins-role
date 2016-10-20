@@ -86,7 +86,7 @@
           - title: ":wrench: config"
             value: ":todo_item:"
 - include: plugins.yml
-- name: update the team with progress (server)
+- name: update the team with progress (plugins)
   slack:
     channel: coderade # the channel is encoded in the token.
     color: good
@@ -113,4 +113,32 @@
             short: true
           - title: ":wrench: config"
             value: ":todo_item:"
-#- include: config.yml
+- include: config.yml
+- name: update the team with progress (config)
+  slack:
+    channel: coderade # the channel is encoded in the token.
+    color: good
+    link_names: 0
+    token: "{{ slack_token }}"
+    username: "Orchy McConfigface on {{ inventory_hostname }}"
+    attachments:
+      - text: "CODE-RADE Jenkins Plugins installed"
+        fallback: "plugins.yml done"
+        thumb_url: "https://github.com/AAROC/CODE-RADE/blob/gh-pages/images/coderade.png?raw=true"
+        footer: "AAROC CODE-RADE Jenkins role"
+        fields:
+          - title: ":baby_bottle:  prerequisites"
+            value: ":item_done:"
+            short: true
+          - title: ":server: server"
+            value: ":item_done:"
+            short: true
+          - title: ":control_knobs: settings"
+            value: ":item_done:"
+            short: true
+          - title: ":electric_plug: plugins"
+            value: ":item_done:"
+            short: true
+          - title: ":wrench: config"
+            value: ":item_done"
+#- include: tests.yml 
