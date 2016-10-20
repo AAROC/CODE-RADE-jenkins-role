@@ -6,9 +6,7 @@
     state: present
     update_cache: true
 
-
-
-- name: ensure that the repo is available
+- name: ensure that the jenkins repo is available
   get_url:
     url: http://pkg.jenkins-ci.org/redhat/jenkins.repo
     dest: /etc/yum.repos.d/jenkins.repo
@@ -26,6 +24,12 @@
     state: latest
     update_cache: true
   changed_when: false
+
+- name: ensure prerequisites are present
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ jenkins_prerequisites }}"
 
 - name: install openjdk
   yum:
