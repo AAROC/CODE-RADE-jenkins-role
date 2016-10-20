@@ -44,6 +44,13 @@
   with_items: "{{ jenkins_plugins }}"
   when: jenkins_admin_password != ""
   notify: restart jenkins
+  failed_when: false
+  # if one or more plugins fails, tell the team
+  register: plugin_install
+
+- name: debug plugins
+  debug:
+    var: plugin_install
 
 - name: Install Jenkins plugins using password-file.
   command: >

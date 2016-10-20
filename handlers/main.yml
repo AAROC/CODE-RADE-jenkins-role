@@ -1,2 +1,9 @@
 ---
 # handlers file for jenkins-server
+- name: restart jenkins
+  uri:
+    method: POST
+    user: "{{ jenkins_admin_username }}"
+    password: "{{ jenkins_admin_password_file }}"
+    force_basic_auth: true
+    url: "{{ jenkins_hostname }}:{{ jenkins_http_port }}/safeRestart"
