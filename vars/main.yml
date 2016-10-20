@@ -5,3 +5,64 @@ openjdk_package:  java-1.7.0-openjdk
 jenkins_init_file: /etc/sysconfig/jenkins
 jenkins_http_port_param: JENKINS_PORT
 jenkins_java_options_env_var: JENKINS_JAVA_OPTIONS
+
+jenkins_plugins:
+  - analysis-core
+  - git
+  - pam-auth
+  - build-user-vars-plugin
+  - ssh-credentials
+  - git-client
+  - ansible
+  - ldap
+  - plain-credentials
+  - conditional-buildstep
+  - github
+  - mailer
+  - ssh-slaves
+  - ansicolor
+  - github-api
+  - project-build-times
+  - credentials
+  - ant
+  - project-stats-plugin
+  - antisamy-markup-formatter
+  - mapdb-api
+  - subversion
+  - run-condition
+  - cvs
+  - github-oauth
+  - matrix-auth
+  - token-macro
+  - saml
+  - build-failure-analyzer
+  - global-build-stats
+  - dashboard-view
+  - build-flow-extensions-plugin
+  - gravatar
+  - depgraph-view
+  - script-security
+  - build-flow-plugin
+  - icon-shim
+  - maven-plugin
+  - embeddable-build-status
+  - warnings
+  - javadoc
+  - build-flow-toolbox-plugin
+  - sidebar-link
+  - envinject
+  - modernstatus
+  - buildgraph-view
+  - simple-theme-plugin
+  - external-monitor-job
+  - jquery
+  - monitoring
+  - build-metrics
+  - slack
+  - ghprb
+  - jquery-ui
+  - naginator
+  - build-monitor-plugin
+  - ssh-agent
+  - buildtriggerbadge
+  - junit
