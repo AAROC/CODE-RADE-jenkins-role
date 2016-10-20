@@ -1,6 +1,6 @@
 ---
-# tasks file for jenkins-server
-#- include: prerequisites.yml
+# tasks file for jenkins-server"
+- include: prerequisites.yml
 - include: server.yml
 - include: settings.yml
 - include: plugins.yml

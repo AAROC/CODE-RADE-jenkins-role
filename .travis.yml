@@ -28,3 +28,4 @@ script:
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  slack: africa-arabia-roc:0gm0NXyX4NAqPOxp7GskDi3r
