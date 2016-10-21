@@ -1,7 +1,22 @@
 ---
 # pull in the config from the repo
 # The config repo is private, so we need to pass user name and password
+- name: Config Staging Ground
+  file:
+    path: "{{ config_staging_dir }}"
+    state: directory
+    owner: jenkins
+    group: jenkins
+
 - name: Pull in Jenkins config
   git:
-    repo: https://{{ github_user }}:{{ github_password }}@github.com/AAROC/JenkinsConfig
-    dest: /tmp/JenkinsConfig
+    repo: https://{{ github_user }}:{{ github_token }}@github.com/AAROC/JenkinsConfig
+    dest: " {{ config_staging_dir }}"
+
+
+- name: Ensure the right permissions
+  file:
+    path: "{{ config_staging_dir }}"
+    owner: jenkins
+    group: jenkins
+    recurse: true
