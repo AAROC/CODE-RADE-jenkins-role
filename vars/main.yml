@@ -14,6 +14,7 @@ jenkins_plugins:
   - ssh-credentials
   - git-client
   - ansible
+  - docker
   - ldap
   - plain-credentials
   - conditional-buildstep
