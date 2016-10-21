@@ -43,7 +43,7 @@
     creates="{{ jenkins_home }}/plugins/{{ item }}.jpi"
   with_items: "{{ jenkins_plugins }}"
   when: jenkins_admin_password != ""
-  notify: restart jenkins
+  notify: restart jenkins service
   failed_when: false
   # if one or more plugins fails, tell the team
   register: plugin_install
@@ -57,4 +57,4 @@
     creates={{ jenkins_home }}/plugins/{{ item }}.jpi
   with_items: "{{ jenkins_plugins }}"
   when: adminpasswordfile.stat.exists == True
-  notify: restart jenkins
+  notify: restart jenkins service
