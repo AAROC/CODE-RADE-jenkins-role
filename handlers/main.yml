@@ -6,4 +6,9 @@
     user: "{{ jenkins_admin_username }}"
     password: "{{ jenkins_admin_password_file }}"
     force_basic_auth: true
-    url: "{{ jenkins_hostname }}:{{ jenkins_http_port }}/safeRestart"
+    url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}/safeRestart"
+
+- name: restart jenkins service
+  service:
+    name: jenkins
+    state: restarted

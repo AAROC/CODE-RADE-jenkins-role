@@ -1,6 +1,13 @@
 ---
 # pull in the config from the repo
 # The config repo is private, so we need to pass user name and password
+- name: Config Backup
+  file:
+    path: "{{ config_backup_dir }}"
+    state: directory
+    owner: jenkins
+    group: jenkins
+
 - name: Config Staging Ground
   file:
     path: "{{ config_staging_dir }}"
@@ -10,9 +17,9 @@
 
 - name: Pull in Jenkins config
   git:
-    repo: https://{{ github_user }}:{{ github_token }}@github.com/AAROC/JenkinsConfig
-    dest: " {{ config_staging_dir }}"
-
+    repo: "https://{{ github_user }}:{{ github_token }}@github.com/AAROC/JenkinsConfig.git"
+    dest: "{{ config_staging_dir }}"
+    clone: yes
 
 - name: Ensure the right permissions
   file:
@@ -20,3 +27,25 @@
     owner: jenkins
     group: jenkins
     recurse: true
+
+- block:
+  - name: back up config
+    shell: "cp /var/lib/jenkins/config.xml {{ config_backup_dir }}/config.xml.{{ date }}"
+  - name: pull in new config
+    shell: "cp {{ config_staging_dir }}/config.xml -f /var/lib/jenkins/config.xml"
+  - name: reset the github client id
+    replace:
+      dest: /var/lib/jenkins/config.xml
+      regexp: a49338da84820556f85c
+      replace: "{{ github_oauth_client_id }}"
+  - name: replace github client secret
+    replace:
+      dest: /var/lib/jenkins/config.xml
+      regexp: 5ed1dc28784ed766ade9ba18e63ecff48ab9ab81
+      replace: "{{ github_oauth_client_secret }}"
+
+- block:
+  - name: pull in plugin configs
+    shell: "cp {{ config_staging_dir }}/{{ item }} -f /var/lib/jenkins/{{ item }}"
+    with_items: "{{ jenkins_plugin_configs }}"
+    notify: restart jenkins service

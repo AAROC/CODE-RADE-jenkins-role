@@ -25,4 +25,5 @@ jenkins_init_changes:
   - option: "{{ jenkins_java_options_env_var }}"
     value: "{{ jenkins_java_options }}"
 
-config_staging_dir: /var/cache/jenkins/config.stage
+config_staging_dir: /var/lib/jenkins/config.stage
+config_backup_dir: /var/lib/jenkins/config.bak

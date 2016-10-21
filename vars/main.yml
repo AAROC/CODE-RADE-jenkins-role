@@ -64,3 +64,10 @@ jenkins_plugins:
   - ssh-agent
   - buildtriggerbadge
   - junit
+
+jenkins_plugin_configs:
+#  - hudson.plugins.git.GitSCM.xml
+  - jenkins.plugins.slack.SlackNotifier.xml
+#  - hudson.plugins.git.GitTool.xml
+  - hudson.plugins.google.analytics.GoogleAnalyticsPageDecorator.xml
+  - org.jenkins_ci.plugins.flexible_publish.FlexiblePublisher.xml
