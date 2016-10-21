@@ -30,22 +30,22 @@
 
 - block:
   - name: back up config
-    shell: "cp /var/lib/jenkins/config.xml {{ config_backup_dir }}/config.xml.{{ date }}"
+    shell: "cp {{ jenkins_home }}/config.xml {{ config_backup_dir }}/config.xml.{{ date }}"
   - name: pull in new config
-    shell: "cp {{ config_staging_dir }}/config.xml -f /var/lib/jenkins/config.xml"
+    shell: "cp {{ config_staging_dir }}/config.xml -f {{ jenkins_home }}/config.xml"
   - name: reset the github client id
     replace:
-      dest: /var/lib/jenkins/config.xml
+      dest: {{ jenkins_home }}/config.xml
       regexp: a49338da84820556f85c
       replace: "{{ github_oauth_client_id }}"
   - name: replace github client secret
     replace:
-      dest: /var/lib/jenkins/config.xml
+      dest: {{ jenkins_home }}/config.xml
       regexp: 5ed1dc28784ed766ade9ba18e63ecff48ab9ab81
       replace: "{{ github_oauth_client_secret }}"
 
 - block:
   - name: pull in plugin configs
-    shell: "cp {{ config_staging_dir }}/{{ item }} -f /var/lib/jenkins/{{ item }}"
+    shell: "cp {{ config_staging_dir }}/{{ item }} -f {{ jenkins_home }}/{{ item }}"
     with_items: "{{ jenkins_plugin_configs }}"
     notify: restart jenkins service
