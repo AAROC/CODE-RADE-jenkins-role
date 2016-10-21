@@ -32,11 +32,11 @@
   - name: check that config is there
     stat:
       path: "{{ jenkins_home }}/config.xml"
-      register: existing_jenkins_config
+    register: existing_jenkins_config
 
   - name: back up config
     shell: "cp {{ jenkins_home }}/config.xml {{ config_backup_dir }}/config.xml.{{ date }}"
-    when: "existing_jenkins_config.stat.exists == true"
+    when: existing_jenkins_config.stat.exists
   - name: pull in new config
     shell: "cp {{ config_staging_dir }}/config.xml -f {{ jenkins_home }}/config.xml"
   - name: reset the github client id

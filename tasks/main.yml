@@ -148,7 +148,7 @@
             value: ":item_done:"
             short: true
           - title: ":wrench: config"
-            value: ":item_done"
+            value: ":item_done:"
   tags:
     - slack
 #- include: setup-buildslaves.yml
