@@ -29,6 +29,8 @@
           - title: ":wrench: config"
             value: ":todo_item:"
             short: true
+    tags:
+      - slack
 - include: server.yml
 - name: update the team with progress (server)
   slack:
@@ -57,6 +59,8 @@
             short: true
           - title: ":wrench: config"
             value: ":todo_item:"
+  tags:
+    - slack
 - include: settings.yml
 - name: update the team with progress (server)
   slack:
@@ -85,6 +89,8 @@
             short: true
           - title: ":wrench: config"
             value: ":todo_item:"
+    tags:
+      - slack
 - include: plugins.yml
 - name: update the team with progress (plugins)
   slack:
@@ -113,6 +119,8 @@
             short: true
           - title: ":wrench: config"
             value: ":todo_item:"
+    tags:
+      - slack
 - include: config.yml
 - name: update the team with progress (config)
   slack:
@@ -141,4 +149,7 @@
             short: true
           - title: ":wrench: config"
             value: ":item_done"
-#- include: tests.yml 
+    tags:
+      - slack
+#- include: setup-buildslaves.yml
+#- include: tests.yml
