@@ -29,18 +29,24 @@
     recurse: true
 
 - block:
+  - name: check that config is there
+    stat:
+      path: "{{ jenkins_home }}/config.xml"
+      register: existing_jenkins_config
+
   - name: back up config
     shell: "cp {{ jenkins_home }}/config.xml {{ config_backup_dir }}/config.xml.{{ date }}"
+    when: "existing_jenkins_config.stat.exists == true"
   - name: pull in new config
     shell: "cp {{ config_staging_dir }}/config.xml -f {{ jenkins_home }}/config.xml"
   - name: reset the github client id
     replace:
-      dest: {{ jenkins_home }}/config.xml
+      dest: "{{ jenkins_home }}/config.xml"
       regexp: a49338da84820556f85c
       replace: "{{ github_oauth_client_id }}"
   - name: replace github client secret
     replace:
-      dest: {{ jenkins_home }}/config.xml
+      dest: "{{ jenkins_home }}/config.xml"
       regexp: 5ed1dc28784ed766ade9ba18e63ecff48ab9ab81
       replace: "{{ github_oauth_client_secret }}"
 
