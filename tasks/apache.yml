@@ -3,8 +3,11 @@
 - name: Ensure Apache is present
   become: true
   package:
-    name: "{{ apache_package[ansible_os_family] }}"
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "{{ apache_package[ansible_os_family] }}"
+    - mod_ssl
   tags:
     - apache
 - name: Ensure the certificates are in place
@@ -16,6 +19,8 @@
   with_items:
     - "{{ cert_file }}_cert.cer"
     - "{{ cert_file }}.key"
+  tags:
+    - apache
 
 - name: Template Jenkins config
   become: true
@@ -23,4 +28,10 @@
     src: etc/httpd/conf.d/jenkins.conf.j2
     dest: /etc/httpd/conf.d/jenkins.conf
     owner: root
+  tags:
+    - apache
   notify: restart httpd
+
+- meta: flush_handlers
+  tags:
+    - apache

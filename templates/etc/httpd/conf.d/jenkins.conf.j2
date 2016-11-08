@@ -1,6 +1,7 @@
 <VirtualHost *:443>
     SSLEngine on
-    SSLCertificateFile /etc/ssl/certs/{{ cert_file }}_cer.pem
+    SSLCertificateFile /etc/ssl/certs/{{ cert_file }}_cert.cer
+    SSLCertificateKeyFile /etc/ssl/certs/{{ cert_file }}.key
     ServerAdmin  "{{ apache_admin_email }}"
     ProxyRequests     Off
     ProxyPreserveHost On
