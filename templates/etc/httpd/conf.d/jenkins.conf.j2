@@ -12,7 +12,7 @@
     </Proxy>
     ProxyPass         /  http://localhost:8080/ nocanon
     ProxyPassReverse  /  http://localhost:8080/
-    ProxyPassReverse  /  http://www.example.com/
+    ProxyPassReverse  /  http://{{ inventory_hostname }}/
     RequestHeader set X-Forwarded-Proto "https"
     RequestHeader set X-Forwarded-Port "443"
 </VirtualHost>
