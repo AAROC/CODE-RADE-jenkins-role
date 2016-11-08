@@ -9,6 +9,7 @@
     url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}/safeRestart"
 
 - name: restart jenkins service
+  become: true
   service:
     name: jenkins
     state: restarted
