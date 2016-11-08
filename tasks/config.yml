@@ -55,3 +55,7 @@
     shell: "cp {{ config_staging_dir }}/{{ item }} -f {{ jenkins_home }}/{{ item }}"
     with_items: "{{ jenkins_plugin_configs }}"
     notify: restart jenkins service
+
+- block:
+  - name: Pull in other minor configs
+    shell: "cp {{ config_staging_dir }}/sidebar-link.xml -f {{ jenkins_home}}/sidebar-link.xml"

@@ -4,6 +4,21 @@
     name: jenkins
     state: present
 
+- name: Add Jenkins user to docker group
+  user:
+    name: jenkins
+    groups:
+      - docker
+      - jenkins
+
+
+- name: Ensure that the wizard doesn't run
+  replace:
+    dest: /etc/sysconfig/jenkins
+    regexp: "^JENKINS_JAVA_OPTIONS=.*$"
+    replace: "JENKINS_JAVA_OPTIONS='{{ jenkins_java_options }}'"
+
+
 - name: ensure that jenkins is running
   service:
     name: jenkins
@@ -15,10 +30,15 @@
     host: "{{ jenkins_hostname }}"
     port: "{{ jenkins_http_port }}"
 
+- name: Look for temporary password
+  shell: grep -A2  password /var/log/jenkins/jenkins.log |tail -n1
+  register: new_password
+
 - name: debug
   debug:
     var: "{{ item}}"
   with_items:
+    - new_password
     - jenkins_admin_username
     - jenkins_admin_password
 

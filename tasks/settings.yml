@@ -19,7 +19,9 @@
   register: jenkins_home_config
 
 - name: Immediately restart Jenkins on init config changes.
-  service: name=jenkins state=restarted
+  service:
+    name: jenkins
+    state: restarted
   when: jenkins_init_prefix.changed
 
 - name: Set HTTP port in Jenkins config.
@@ -42,7 +44,9 @@
   meta: flush_handlers
 
 - name: Immediately restart Jenkins on http or user changes.
-  service: name=jenkins state=restarted
+  service:
+    name: jenkins
+    state: restarted
   when: (jenkins_users_config is defined and jenkins_users_config.changed) or
         (jenkins_http_config is defined and jenkins_http_config.changed) or
         (jenkins_home_config is defined and jenkins_home_config.changed)
