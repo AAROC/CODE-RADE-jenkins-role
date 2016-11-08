@@ -32,6 +32,13 @@
     - apache
   notify: restart httpd
 
+- name: Ensure that SELinux allows httpd
+  become: true
+  seboolean:
+    name: httpd_can_network_connect
+    persistent: yes
+    state: yes
+
 - meta: flush_handlers
   tags:
     - apache
