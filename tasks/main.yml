@@ -68,6 +68,7 @@
             short: true
   tags:
     - slack
+- include: apache.yml
 - include: settings.yml
 - name: update the team with progress (settings)
   slack:

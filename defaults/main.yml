@@ -1,5 +1,16 @@
 ---
 # defaults file for jenkins-server
+
+# Stuff to secure the web
+# The Apache package name in the repository
+apache_package:
+  RedHat: httpd
+  Debian: apache2
+# the name of the Apache service on the host
+apache_service:
+  RedHat: httpd
+  Debian: apache2
+# Stuff you need to make Jenkins behave
 jenkins_prerequisites:
   - curl
   - git
