@@ -1,0 +1,9 @@
+# Apache config for CODE-RADE
+---
+- name: Ensure Apache is present
+  become: true
+  package:
+    name: "{{ apache_package[ansible_os_family] }}"
+    state: present
+  tags:
+    - apache
