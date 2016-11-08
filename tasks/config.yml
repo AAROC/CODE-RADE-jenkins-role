@@ -20,6 +20,7 @@
     repo: "https://{{ github_user }}:{{ github_token }}@github.com/AAROC/JenkinsConfig.git"
     dest: "{{ config_staging_dir }}"
     clone: yes
+    version: FR2
 
 - name: Ensure the right permissions
   file:
@@ -38,7 +39,7 @@
     shell: "cp {{ jenkins_home }}/config.xml {{ config_backup_dir }}/config.xml.{{ date }}"
     when: existing_jenkins_config.stat.exists
   - name: pull in new config
-    shell: "cp {{ config_staging_dir }}/config.xml -f {{ jenkins_home }}/config.xml"
+    shell: "cp -f {{ config_staging_dir }}/config.xml {{ jenkins_home }}/config.xml"
   - name: reset the github client id
     replace:
       dest: "{{ jenkins_home }}/config.xml"
