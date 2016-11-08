@@ -201,7 +201,7 @@
             value: ":item_done:"
             short: true
           - title: ":neckbeard: jobs"
-            value: ":todo_item:"
+            value: ":item_done:"
             short: true
 #- include: setup-buildslaves.yml
 #- include: tests.yml
