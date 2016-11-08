@@ -1,1 +1,19 @@
 ---
+- name: Add local docker cloud
+  blockinfile:
+    dest: "{{ jenkins_home }}/config.xml"
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    insertafter: "<myViewsTabBar.*$"
+    block: |
+     <clouds>
+      <com.nirima.jenkins.plugins.docker.DockerCloud plugin="docker-plugin@0.16.2">
+        <name>local cloud</name>
+        <templates class="empty-list"/>
+        <serverUrl>unix:///var/run/docker.sock</serverUrl>
+        <connectTimeout>0</connectTimeout>
+        <readTimeout>0</readTimeout>
+        <version>1.24</version>
+        <credentialsId></credentialsId>
+        <containerCap>100</containerCap>
+      </com.nirima.jenkins.plugins.docker.DockerCloud>
+    </clouds>
