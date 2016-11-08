@@ -7,65 +7,84 @@
     mode: 0755
     state: directory
   register: jenkins_plugins_folder_create
-
-# Review
-# - name: Update Jenkins plugin data.
-#   shell: curl -L https://updates.jenkins-ci.org/update-center.json | sed '1d;$d' > "{{ jenkins_home }}/updates/default.json"
-#   args:
-#     creates: "{{ jenkins_home }}/updates/default.json"
-#
-# - name: Permissions for default.json updates info.
-#   file:
-#     path: "{{ jenkins_home }}/updates/default.json"
-#     owner: jenkins
-#     group: jenkins
-#     mode: 0755
-#   when: jenkins_plugins_folder_create.changed
-#
-# - name: Check if we're using a password file for authentication
-#   stat:
-#     path: "{{ jenkins_admin_password_file }}"
-#   register: adminpasswordfile
-#
-# - name: Get the jenkins CLI
-#   get_url:
-#     url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}/jnlpJars/jenkins-cli.jar"
-#     dest: "{{ jenkins_jar_location }}"
-#     owner: jenkins
-#     group: jenkins
-
-# - name: Install Jenkins plugins using password.
-#   command: >
-#     java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/
-#     install-plugin {{ item }}
-#     creates="{{ jenkins_home }}/plugins/{{ item }}.jpi"
-#   with_items: "{{ jenkins_plugins }}"
-#   when: jenkins_admin_password != ""
-#   notify: restart jenkins service
-#   failed_when: false
-#   # if one or more plugins fails, tell the team
-#   register: plugin_install
-
-# - name: Install Jenkins plugins using password-file.
-#   command: >
-#     java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/
-#     install-plugin {{ item }}
-#     --username {{ jenkins_admin_username }}
-#     --password-file {{ jenkins_admin_password_file }}
-#     creates={{ jenkins_home }}/plugins/{{ item }}.jpi
-#   with_items: "{{ jenkins_plugins }}"
-#   when: adminpasswordfile.stat.exists == True
-#   notify: restart jenkins service
-
-
-# I have commented out the previous tasks in order to try using the new Jenkins_plugin module
-- name: install Jenkins plugins
-  jenkins_plugin:
-    owner: jenkins
-    group: jenkins
-    name: "{{ item }}"
-    state: latest
-    with_dependencies: yes
-  with_items: "{{ jenkins_plugins }}"
   tags:
     - plugins
+
+#Review
+- name: Update Jenkins plugin data.
+  shell: curl -L https://updates.jenkins-ci.org/update-center.json | sed '1d;$d' > "{{ jenkins_home }}/updates/default.json"
+  args:
+    creates: "{{ jenkins_home }}/updates/default.json"
+  tags:
+    - plugins
+
+- name: Permissions for default.json updates info.
+  file:
+    path: "{{ jenkins_home }}/updates/default.json"
+    owner: jenkins
+    group: jenkins
+    mode: 0755
+  when: jenkins_plugins_folder_create.changed
+  tags:
+    - plugins
+
+- name: Check if we're using a password file for authentication
+  stat:
+    path: "{{ jenkins_admin_password_file }}"
+  register: adminpasswordfile
+  tags:
+    - plugins
+
+- name: Get the jenkins CLI
+  get_url:
+    url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}/jnlpJars/jenkins-cli.jar"
+    dest: "{{ jenkins_jar_location }}"
+    owner: jenkins
+    group: jenkins
+  tags:
+    - plugins
+
+- name: Install Jenkins plugins using password.
+  command: >
+    java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/
+    install-plugin {{ item }}
+    creates="{{ jenkins_home }}/plugins/{{ item }}.jpi"
+  with_items: "{{ jenkins_plugins }}"
+  when: jenkins_admin_password != ""
+  notify: restart jenkins service
+  failed_when: false
+  # if one or more plugins fails, tell the team
+  register: plugin_install
+  tags:
+    - plugins
+
+- name: Install Jenkins plugins using password-file.
+  command: >
+    java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix | default('') }}/
+    install-plugin {{ item }}
+    --username {{ jenkins_admin_username }}
+    --password-file {{ jenkins_admin_password_file }}
+    creates={{ jenkins_home }}/plugins/{{ item }}.jpi
+  with_items: "{{ jenkins_plugins }}"
+  when: adminpasswordfile.stat.exists == True
+  notify: restart jenkins service
+  tags:
+    - plugins
+
+# I have commented out the following tasks until https://github.com/ansible/ansible-modules-extras/issues/3391
+# is closed
+# - name: install Jenkins plugins
+#   jenkins_plugin:
+#     owner: jenkins
+#     group: jenkins
+#     name: "{{ item }}"
+#     state: latest
+#     with_dependencies: yes
+#   with_items: "{{ jenkins_plugins }}"
+#   tags:
+#     - plugins
+#   notify: restart jenkins service
+
+
+# Another option is to simply download the hpi
+#- name: Get plugins
