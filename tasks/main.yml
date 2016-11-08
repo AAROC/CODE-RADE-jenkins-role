@@ -203,5 +203,5 @@
           - title: ":neckbeard: jobs"
             value: ":item_done:"
             short: true
-#- include: setup-buildslaves.yml
+- include: extra-config.yml
 #- include: tests.yml
