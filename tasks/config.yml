@@ -57,5 +57,5 @@
     notify: restart jenkins service
 
 - block:
-  - name: Pull in other minor configs
+  - name: Pull in sidebar links
     shell: "cp {{ config_staging_dir }}/sidebar-link.xml -f {{ jenkins_home}}/sidebar-link.xml"

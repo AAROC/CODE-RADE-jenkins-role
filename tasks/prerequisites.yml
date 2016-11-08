@@ -35,3 +35,15 @@
   yum:
     name: "{{ openjdk_package }}"
     state: present
+
+- name: Upgrade setuptools (for Ansible-Container)
+  become: true
+  pip:
+    name: setuptools
+    state: latest
+
+- name: Ensure Ansible-Container is present
+  become: true
+  pip:
+    name: ansible-container
+    state: latest

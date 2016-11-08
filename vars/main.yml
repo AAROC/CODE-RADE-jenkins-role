@@ -71,3 +71,80 @@ jenkins_plugin_configs:
 #  - hudson.plugins.git.GitTool.xml
   - hudson.plugins.google.analytics.GoogleAnalyticsPageDecorator.xml
   - org.jenkins_ci.plugins.flexible_publish.FlexiblePublisher.xml
+
+# these job names are kept in the JenkinsConfig repo on github.
+# Are you special ? Then you can see them :) Else - GTFO
+jenkins_jobs:
+  - abinit-deploy
+  - abyss-deploy
+  - add-scores-deploy
+  - ASR template
+  - atlas-deploy
+  - autodock-deploy
+  - boost-deploy
+  - bzlib-deploy
+  - clhep-deploy
+  - cmake-deploy
+  - curl-deploy
+  - Fermionic-Molecular-Dynamics-deploy
+  - fftw2-deploy
+  - fftw3-deploy
+  - fitsio-deploy
+  - freetype-deploy
+  - gadget-deploy
+  - gcc-deploy
+  - gmp-deploy
+  - gnuplot-deploy
+  - gromacs-deploy
+  - gsl-deploy
+  - hdf5-mpich-deploy
+  - hdf5-openmpi-deploy
+  - heasoft-deploy
+  - hmmer-deploy
+  - htk-deploy
+  - jasper-deploy
+  - java-openjdk-deploy
+  - lapack-deploy
+  - libpng-deploy
+  - libsvm-deploy
+  - libxml2-deploy
+  - llvm-deploy
+  - lua-deploy
+  - matlab-runtime-deploy
+  - matplotlib-deploy
+  - mothur-deploy
+  - mpc-deploy
+  - mpfr-deploy
+  - mpich-deploy
+  - ncurses-deploy
+  - netcdf-deploy
+  - numpy-deploy
+  - oases-deploy
+  - openblas-deploy
+  - OpenFOAM-deploy
+  - OpenMPI
+  - openssl-deploy
+  - plink-deploy
+  - proj-deploy
+  - python-deploy
+  - quantum-espresso-noparallel-deploy
+  - readline-deploy
+  - repast-deploy
+  - repast-hpc-deploy
+  - repo transaction
+  - rlang-deploy
+  - root-deploy
+  - Sakhile-first-deploy
+  - scalapack-deploy
+  - scipy-deploy
+  - shapeit-deploy
+  - sparsehash-deploy
+  - sqlite-deploy
+  - suitesparse-deploy
+  - tcltk-deploy
+  - template-deploy
+  - torque-deploy
+  - velvet-deploy
+  - weka-deploy
+  - wrf-deploy
+  - zlib-deploy

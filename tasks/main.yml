@@ -29,6 +29,9 @@
           - title: ":wrench: config"
             value: ":todo_item:"
             short: true
+          - title: ":neckbeard: jobs"
+            value: ":todo_item:"
+            short: true
   tags:
     - slack
 - include: server.yml
@@ -59,6 +62,10 @@
             short: true
           - title: ":wrench: config"
             value: ":todo_item:"
+            short: true
+          - title: ":neckbeard: jobs"
+            value: ":todo_item:"
+            short: true
   tags:
     - slack
 - include: settings.yml
@@ -89,6 +96,10 @@
             short: true
           - title: ":wrench: config"
             value: ":todo_item:"
+            short: true
+          - title: ":neckbeard: jobs"
+            value: ":todo_item:"
+            short: true
   tags:
     - slack
 - include: plugins.yml
@@ -119,6 +130,10 @@
             short: true
           - title: ":wrench: config"
             value: ":todo_item:"
+            short: true
+          - title: ":neckbeard: jobs"
+            value: ":todo_item:"
+            short: true
   tags:
     - slack
 - include: config.yml
@@ -149,8 +164,44 @@
             short: true
           - title: ":wrench: config"
             value: ":item_done:"
+            short: true
+          - title: ":neckbeard: jobs"
+            value: ":todo_item:"
+            short: true
   tags:
     - slack
-
+#- include: extra-config.yml
+- include: jobs.yml
+- name: update the team with progress (jobs)
+  slack:
+    channel: coderade # the channel is encoded in the token.
+    color: good
+    link_names: 0
+    token: "{{ slack_token }}"
+    username: "Orchy McConfigface on {{ inventory_hostname }}"
+    attachments:
+      - text: "CODE-RADE Jenkins Plugins installed"
+        fallback: "plugins.yml done"
+        thumb_url: "https://github.com/AAROC/CODE-RADE/blob/gh-pages/images/coderade.png?raw=true"
+        footer: "AAROC CODE-RADE Jenkins role"
+        fields:
+          - title: ":baby_bottle:  prerequisites"
+            value: ":item_done:"
+            short: true
+          - title: ":server: server"
+            value: ":item_done:"
+            short: true
+          - title: ":control_knobs: settings"
+            value: ":item_done:"
+            short: true
+          - title: ":electric_plug: plugins"
+            value: ":item_done:"
+            short: true
+          - title: ":wrench: config"
+            value: ":item_done:"
+            short: true
+          - title: ":neckbeard: jobs"
+            value: ":todo_item:"
+            short: true
 #- include: setup-buildslaves.yml
 #- include: tests.yml
