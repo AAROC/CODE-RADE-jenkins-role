@@ -71,6 +71,8 @@ jenkins_plugin_configs:
 #  - hudson.plugins.git.GitTool.xml
   - hudson.plugins.google.analytics.GoogleAnalyticsPageDecorator.xml
   - org.jenkins_ci.plugins.flexible_publish.FlexiblePublisher.xml
+# This adds the bootstrap stuff.
+  - org.codefirst.SimpleThemeDecorator.xml
 
 # these job names are kept in the JenkinsConfig repo on github.
 # Are you special ? Then you can see them :) Else - GTFO
