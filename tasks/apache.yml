@@ -7,3 +7,20 @@
     state: present
   tags:
     - apache
+- name: Ensure the certificates are in place
+  become: true
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/ssl/certs/{{ item }}"
+    owner: root
+  with_items:
+    - "{{ cert_file }}_cert.cer"
+    - "{{ cert_file }}.key"
+
+- name: Template Jenkins config
+  become: true
+  template:
+    src: etc/httpd/conf.d/jenkins.conf.j2
+    dest: /etc/httpd/conf.d/jenkins.conf
+    owner: root
+  notify: restart httpd

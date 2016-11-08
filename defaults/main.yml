@@ -10,6 +10,7 @@ apache_package:
 apache_service:
   RedHat: httpd
   Debian: apache2
+apache_admin_email: 'thesagrid@gmail.com'
 # Stuff you need to make Jenkins behave
 jenkins_prerequisites:
   - curl
@@ -22,7 +23,7 @@ jenkins_prerequisites:
 jenkins_connection_delay: 5
 jenkins_connection_retries: 60
 jenkins_home: /var/lib/jenkins
-jenkins_hostname: "{{ inventory_hostname }}"
+jenkins_hostname: localhost # "{{ inventory_hostname }}"
 jenkins_http_port: 8080
 jenkins_jar_location: /opt/jenkins-cli.jar
 jenkins_plugins: []
