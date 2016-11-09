@@ -1,0 +1,18 @@
+<VirtualHost *:443>
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/{{ cert_file }}_cert.cer
+    SSLCertificateKeyFile /etc/ssl/certs/{{ cert_file }}.key
+    ServerAdmin  "{{ apache_admin_email }}"
+    ProxyRequests     Off
+    ProxyPreserveHost On
+    AllowEncodedSlashes NoDecode
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+    </Proxy>
+    ProxyPass         /  http://localhost:8080/ nocanon
+    ProxyPassReverse  /  http://localhost:8080/
+    ProxyPassReverse  /  http://{{ inventory_hostname }}/
+    RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-Port "443"
+</VirtualHost>

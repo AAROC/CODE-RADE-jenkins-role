@@ -3,7 +3,42 @@
 - name: Ensure Apache is present
   become: true
   package:
-    name: "{{ apache_package[ansible_os_family] }}"
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "{{ apache_package[ansible_os_family] }}"
+    - mod_ssl
+  tags:
+    - apache
+- name: Ensure the certificates are in place
+  become: true
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/ssl/certs/{{ item }}"
+    owner: root
+  with_items:
+    - "{{ cert_file }}_cert.cer"
+    - "{{ cert_file }}.key"
+  tags:
+    - apache
+
+- name: Template Jenkins config
+  become: true
+  template:
+    src: etc/httpd/conf.d/jenkins.conf.j2
+    dest: /etc/httpd/conf.d/jenkins.conf
+    owner: root
+  tags:
+    - apache
+  notify: restart httpd
+
+- name: Ensure that SELinux allows httpd
+  become: true
+  seboolean:
+    name: httpd_can_network_connect
+    persistent: yes
+    state: yes
+
+- meta: flush_handlers
   tags:
     - apache
