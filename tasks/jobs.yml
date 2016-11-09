@@ -1,10 +1,16 @@
 ---
-- name: Add Jobs
+# - name: Add the container job
+#   jenkins_job:
+#     name: build-slave-container
+
+- name: Add Jobs from repo
   jenkins_job:
-    config: "{{ lookup('file', '{{ item }}/config.xml') }}"
+    config: "{{ lookup('file', '/home/becker/Ops/AAROC/JenkinsConfig/jobs/{{ item }}/config.xml')}}"
     name: "{{ item }}"
     url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}"
-    user: admin
-  with_items: "{{ jenkins_jobs }}"
+    user: brucellino
+    token: 7ab78fda74de661d0116836c32a704f6
+    state: present
   tags:
     - jobs
+  with_items: "{{ jenkins_jobs }}"
