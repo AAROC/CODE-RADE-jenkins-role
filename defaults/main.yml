@@ -19,6 +19,7 @@ jenkins_prerequisites:
   - python-pip
   - python-jenkins
   - python-lxml.x86_64
+  - environment-modules
 
 jenkins_connection_delay: 5
 jenkins_connection_retries: 60

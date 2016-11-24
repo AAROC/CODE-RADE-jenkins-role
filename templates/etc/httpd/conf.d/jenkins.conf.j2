@@ -1,5 +1,33 @@
 <VirtualHost *:443>
     SSLEngine on
+    SSLProtocol All -SSLv2 -SSLv3
+    SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
+    SSLHonorCipherOrder on
+    SSLCompression off
+    #SSLUseStapling on
+    #SSLStaplingCache "shmcb:logs/stapling-cache(150000)"
+    Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    Header always set X-Frame-Options DENY
+    Header always set X-Content-Type-Options nosniff
+
+    SSLCertificateFile /etc/ssl/certs/ci_sagrid_ac_za_cert.cer
+    SSLCertificateKeyFile /etc/ssl/certs/ci_sagrid_ac_za.key
+    SSLCACertificateFile /etc/ssl/certs/ci_sagrid_ac_za_interm.cer
+    ServerAdmin  "thesagrid@gmail.com"
+    ProxyRequests     Off
+    ProxyPreserveHost On
+    AllowEncodedSlashes NoDecode
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+    </Proxy>
+    ProxyPass         /  http://localhost:8080/ nocanon
+    ProxyPassReverse  /  http://localhost:8080/
+    ProxyPassReverse  /  http://196.21.182.7/
+    RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-Port "443"
+
+    SSLEngine on
     SSLCertificateFile /etc/ssl/certs/{{ cert_file }}_cert.cer
     SSLCertificateKeyFile /etc/ssl/certs/{{ cert_file }}.key
     ServerAdmin  "{{ apache_admin_email }}"
