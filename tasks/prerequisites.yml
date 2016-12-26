@@ -47,8 +47,11 @@
     name: setuptools
     state: latest
 
-- name: Ensure Ansible-Container is present
+- name: Ensure Ansible components are present
   become: true
   pip:
-    name: ansible-container
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - ansible-container
+    - ansible
