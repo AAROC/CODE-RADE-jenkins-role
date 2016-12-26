@@ -25,6 +25,11 @@
     update_cache: true
   changed_when: false
 
+- name: Ensure build essentials
+  yum:
+    name: "@Development tools"
+    state: present
+
 - name: ensure prerequisites are present
   package:
     name: "{{ item }}"

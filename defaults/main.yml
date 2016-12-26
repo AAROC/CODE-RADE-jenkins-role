@@ -20,6 +20,9 @@ jenkins_prerequisites:
   - python-jenkins
   - python-lxml.x86_64
   - environment-modules
+  - libffi-devel
+  - python-devel
+  - openssl-devel
 
 jenkins_connection_delay: 5
 jenkins_connection_retries: 60
