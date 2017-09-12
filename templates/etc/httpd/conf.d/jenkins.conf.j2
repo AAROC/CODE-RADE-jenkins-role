@@ -27,6 +27,12 @@
     RequestHeader set X-Forwarded-Proto "https"
     RequestHeader set X-Forwarded-Port "443"
 
+    #Remove Track and Trace
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+    RewriteRule .* - [F]
+
+
     SSLEngine on
     SSLCertificateFile /etc/ssl/certs/{{ cert_file }}_cert.cer
     SSLCertificateKeyFile /etc/ssl/certs/{{ cert_file }}.key
