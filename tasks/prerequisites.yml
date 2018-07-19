@@ -2,7 +2,7 @@
 # Prerequisite stuff for Jenkins
 - name: ensure that epel is available
   yum:
-    name: http://mirror.ufs.ac.za/fedora-epel/epel-release-latest-7.noarch.rpm
+    name: epel-release
     state: present
     update_cache: true
 
@@ -53,5 +53,5 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - ansible-container
+    - requests
     - ansible

@@ -23,6 +23,7 @@ jenkins_prerequisites:
   - libffi-devel
   - python-devel
   - openssl-devel
+  - net-tools
 
 jenkins_connection_delay: 5
 jenkins_connection_retries: 60
